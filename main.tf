@@ -1,0 +1,90 @@
+resource "aws_cloudwatch_metric_alarm" "cpu_utilization_too_high" {
+  count               = var.cpu_utilization_too_high-alarm ? 1 : 0
+  alarm_name          = "[${title(local.alarm_name_prefix)}] ec2-${local.instance_name}-cpu-utilization-too-high"
+  comparison_operator = var.cpu_utilization_too_high-comparison_operator
+  evaluation_periods  = var.cpu_utilization_too_high-datapoint
+  metric_name         = "CPUUtilization"
+  namespace           = "AWS/EC2"
+  period              = var.cpu_utilization_too_high-period
+  statistic           = "Average"
+  threshold           = local.thresholds["CPUUtilizationThreshold"]
+  alarm_description   = "Average EC2 instance CPU utilization over last ${var.cpu_utilization_too_high-period} minutes too high. (${var.cpu_utilization_too_high-priority})"
+  alarm_actions       = var.sns_topic_arn
+  ok_actions          = var.sns_topic_arn
+  tags                = var.tags
+
+  dimensions = {
+    InstanceId = var.ec2_instance_id
+  }
+}
+
+resource "aws_cloudwatch_metric_alarm" "memory_utilization_too_high" {
+  count               = var.memory_utilization_too_high-alarm ? 1 : 0
+  alarm_name          = "[${title(local.alarm_name_prefix)}] ec2-${local.instance_name}-memory-usage-percent-too-high"
+  comparison_operator = var.memory_utilization_too_high-comparison_operator
+  evaluation_periods  = var.memory_utilization_too_high-datapoint
+  metric_name         = "mem_used_percent"
+  namespace           = "CWAgent"
+  period              = var.memory_utilization_too_high-period
+  statistic           = "Average"
+  threshold           = local.thresholds["MemoryUsageThreshold"]
+  alarm_description   = "Average EC2 instance memory usage over last ${var.memory_utilization_too_high-period} minutes too high, expect a significant performance drop soon. (${var.memory_utilization_too_high-priority})"
+  alarm_actions       = var.sns_topic_arn
+  ok_actions          = var.sns_topic_arn
+  tags                = var.tags
+
+  dimensions = {
+    InstanceId   = var.ec2_instance_id
+    ImageId      = local.image_id
+    InstanceType = local.instance_type
+  }
+}
+
+resource "aws_cloudwatch_metric_alarm" "disk-utilization_too_high" {
+  #for_each = { for i in range(length(var.path)) : var.path[i] => var.device[i] }
+  for_each = local.devices_map
+
+  alarm_name          = "[${title(local.alarm_name_prefix)}] ec2-${local.instance_name}-disk-usage-space-threshold-${lookup(each.value, "path")}"
+  comparison_operator = var.disk-utilization_too_high-comparison_operator
+  evaluation_periods  = var.disk-utilization_too_high-datapoint
+  metric_name         = "disk_used_percent"
+  namespace           = "CWAgent"
+  period              = var.disk-utilization_too_high-period
+  statistic           = "Average"
+  threshold           = local.thresholds["DiskUsedThreshold"]
+  alarm_description   = "Average EC2 instance Disk Usage over last ${var.disk-utilization_too_high-period} minutes too high, expect a significant performance drop soon. (${var.disk-utilization_too_high-priority})"
+  alarm_actions       = var.sns_topic_arn
+  ok_actions          = var.sns_topic_arn
+  tags                = var.tags
+
+  dimensions = {
+    InstanceId   = var.ec2_instance_id
+    path         = lookup(each.value, "path")
+    ImageId      = local.image_id
+    device       = lookup(each.value, "device")
+    InstanceType = local.instance_type
+    fstype       = lookup(each.value, "fstype")
+  }
+}
+
+resource "aws_cloudwatch_metric_alarm" "swap_utilization_too_high" {
+  count               = var.swap_utilization_too_high-alarm ? 1 : 0
+  alarm_name          = "[${title(local.alarm_name_prefix)}] ec2-${local.instance_name}-cpu-swap-usage-too-high"
+  comparison_operator = var.swap_utilization_too_high-comparison_operator
+  evaluation_periods  = var.swap_utilization_too_high-datapoint
+  metric_name         = "swap_used_percent"
+  namespace           = "CWAgent"
+  period              = var.swap_utilization_too_high-period
+  statistic           = "Average"
+  threshold           = local.thresholds["SwapUsageThreshold"]
+  alarm_description   = "Average EC2 instance CPU Swap Usage over last ${var.swap_utilization_too_high-period} minutes too high, expect a significant performance drop soon. (${var.swap_utilization_too_high-priority})"
+  alarm_actions       = var.sns_topic_arn
+  ok_actions          = var.sns_topic_arn
+  tags                = var.tags
+
+  dimensions = {
+    InstanceId   = var.ec2_instance_id
+    ImageId      = local.image_id
+    InstanceType = local.instance_type
+  }
+}
