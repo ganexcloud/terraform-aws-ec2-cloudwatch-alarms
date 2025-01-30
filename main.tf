@@ -66,7 +66,7 @@ resource "aws_cloudwatch_metric_alarm" "memory_utilization_too_high_windows" {
 
 resource "aws_cloudwatch_metric_alarm" "disk-utilization_too_high" {
   #for_each = { for i in range(length(var.path)) : var.path[i] => var.device[i] }
-  for_each = var.disk-utilization_too_high-alarm ? local.devices_map_linux : {}
+  for_each = var.disk-utilization_too_high-alarm ? local.devices_map : {}
 
   alarm_name          = "[${title(local.alarm_name_prefix)}] ec2-${local.instance_name}-disk-usage-space-threshold-${lookup(each.value, "path")}"
   comparison_operator = var.disk-utilization_too_high-comparison_operator
