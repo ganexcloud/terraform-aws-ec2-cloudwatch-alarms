@@ -16,13 +16,22 @@ variable "ec2_instance_id" {
   type        = string
 }
 
-variable "devices" {
+variable "devices_linux" {
   description = "The instance ID of the EC2 instance that you want to monitor."
   type = list(object({
     path   = string
     device = string
     fstype = string
   }))
+  default = []
+}
+
+variable "devices_windows" {
+  description = "The instance ID of the EC2 instance that you want to monitor."
+  type = list(object({
+    instance = string
+  }))
+  default = []
 }
 
 variable "cpu_utilization_threshold" {
@@ -44,6 +53,12 @@ variable "swap_usage_threshold" {
 }
 
 variable "disk-usage_threshold" {
+  description = "The minimum amount of available storage space in Byte."
+  type        = string
+  default     = 90
+}
+
+variable "logical_disk_free_space_threshold" {
   description = "The minimum amount of available storage space in Byte."
   type        = string
   default     = 90
@@ -75,6 +90,13 @@ variable "cpu_utilization_too_high-priority" {
   default     = "P3"
   type        = string
 }
+
+variable "memory_utilization_too_high_windows-alarm" {
+  description = "Enable Alarm to metric: memory_utilization_too_high"
+  default     = false
+  type        = bool
+}
+
 variable "memory_utilization_too_high-alarm" {
   description = "Enable Alarm to metric: memory_utilization_too_high"
   default     = true
@@ -150,6 +172,33 @@ variable "disk-utilization_too_high-period" {
 }
 
 variable "disk-utilization_too_high-priority" {
+  description = "Priority of alarm"
+  default     = "P3"
+  type        = string
+}
+
+variable "logical_disk_free_space-alarm" {
+  description = "Enable Alarm to metric: logical_disk_free_space_alarm"
+  default     = false
+  type        = bool
+}
+
+variable "logical_disk_free_space-comparison_operator" {
+  description = "Comparison_operator to alarm"
+  default     = "GreaterThanThreshold"
+}
+
+variable "logical_disk_free_space-datapoint" {
+  description = "Datapoint check to alarm"
+  default     = "1"
+}
+
+variable "logical_disk_free_space-period" {
+  description = "Period check to alarm (in seconds)"
+  default     = "600"
+}
+
+variable "logical_disk_free_space-priority" {
   description = "Priority of alarm"
   default     = "P3"
   type        = string
