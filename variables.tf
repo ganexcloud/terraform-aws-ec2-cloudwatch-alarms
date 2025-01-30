@@ -61,7 +61,7 @@ variable "disk-usage_threshold" {
 variable "logical_disk_free_space_threshold" {
   description = "The minimum amount of available storage space in Byte."
   type        = string
-  default     = 90
+  default     = 5
 }
 
 variable "cpu_utilization_too_high-alarm" {
@@ -185,7 +185,7 @@ variable "logical_disk_free_space-alarm" {
 
 variable "logical_disk_free_space-comparison_operator" {
   description = "Comparison_operator to alarm"
-  default     = "GreaterThanThreshold"
+  default     = "LessThanThreshold"
 }
 
 variable "logical_disk_free_space-datapoint" {
