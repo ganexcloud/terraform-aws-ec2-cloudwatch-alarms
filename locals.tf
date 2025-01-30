@@ -1,5 +1,5 @@
 locals {
-  devices_map_linux   = { for device in var.devices_linux : device.devices_linux => device }
+  devices_map   = { for device in var.devices : device.device => device }
   devices_map_windows = { for device in var.devices_windows : device.instance => device }
 }
 

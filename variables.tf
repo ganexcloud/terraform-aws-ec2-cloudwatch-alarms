@@ -16,7 +16,7 @@ variable "ec2_instance_id" {
   type        = string
 }
 
-variable "devices_linux" {
+variable "devices" {
   description = "The instance ID of the EC2 instance that you want to monitor."
   type = list(object({
     path   = string
