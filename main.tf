@@ -1,3 +1,83 @@
+resource "aws_cloudwatch_metric_alarm" "status_check_failed" {
+  count               = var.status_check_failed-alarm ? 1 : 0
+  alarm_name          = "[${title(local.alarm_name_prefix)}] ec2-${local.instance_name}-status_check_failed"
+  comparison_operator = var.status_check_failed-comparison_operator
+  evaluation_periods  = var.status_check_failed-datapoint
+  metric_name         = "StatusCheckFailed"
+  namespace           = "AWS/EC2"
+  period              = var.status_check_failed-period
+  statistic           = "Average"
+  threshold           = local.thresholds["StatusCheckFailedThreshold"]
+  alarm_description   = "Status Check EC2 instance Failed under last ${var.status_check_failed-period} minutes too. (${var.status_check_failed-priority})"
+  alarm_actions       = var.sns_topic_arn
+  ok_actions          = var.sns_topic_arn
+  tags                = var.tags
+
+  dimensions = {
+    InstanceId = var.ec2_instance_id
+  }
+}
+
+resource "aws_cloudwatch_metric_alarm" "ebs_bytes_balance_too_low" {
+  count               = var.ebs_bytes_balance_too_low-alarm ? 1 : 0
+  alarm_name          = "[${title(local.alarm_name_prefix)}] ec2-${local.instance_name}-ebs_bytes_balance_too_low"
+  comparison_operator = var.ebs_bytes_balance_too_low-comparison_operator
+  evaluation_periods  = var.ebs_bytes_balance_too_low-datapoint
+  metric_name         = "EBSByteBalance%"
+  namespace           = "AWS/EC2"
+  period              = var.ebs_bytes_balance_too_low-period
+  statistic           = "Average"
+  threshold           = local.thresholds["EBSByteBalanceThreshold"]
+  alarm_description   = "Average EC2 instance EBS Byte Balance under last ${var.ebs_bytes_balance_too_low-period} minutes too high. (${var.ebs_bytes_balance_too_low-priority})"
+  alarm_actions       = var.sns_topic_arn
+  ok_actions          = var.sns_topic_arn
+  tags                = var.tags
+
+  dimensions = {
+    InstanceId = var.ec2_instance_id
+  }
+}
+
+resource "aws_cloudwatch_metric_alarm" "ebs_io_balance_too_low" {
+  count               = var.ebs_io_balance_too_low-alarm ? 1 : 0
+  alarm_name          = "[${title(local.alarm_name_prefix)}] ec2-${local.instance_name}-ebs_io_balance_too_low"
+  comparison_operator = var.ebs_io_balance_too_low-comparison_operator
+  evaluation_periods  = var.ebs_io_balance_too_low-datapoint
+  metric_name         = "EBSIOBalance%"
+  namespace           = "AWS/EC2"
+  period              = var.ebs_io_balance_too_low-period
+  statistic           = "Average"
+  threshold           = local.thresholds["EBSIOBalanceThreshold"]
+  alarm_description   = "Average EC2 instance EBS IO Balance under last ${var.ebs_io_balance_too_low-period} minutes too high. (${var.ebs_io_balance_too_low-priority})"
+  alarm_actions       = var.sns_topic_arn
+  ok_actions          = var.sns_topic_arn
+  tags                = var.tags
+
+  dimensions = {
+    InstanceId = var.ec2_instance_id
+  }
+}
+
+resource "aws_cloudwatch_metric_alarm" "cpu_credit_balance_too_low" {
+  count               = var.cpu_credit_balance_too_low-alarm ? 1 : 0
+  alarm_name          = "[${title(local.alarm_name_prefix)}] ec2-${local.instance_name}-cpu_credit_balance_too_low"
+  comparison_operator = var.cpu_credit_balance_too_low-comparison_operator
+  evaluation_periods  = var.cpu_credit_balance_too_low-datapoint
+  metric_name         = "CPUCreditBalance"
+  namespace           = "AWS/EC2"
+  period              = var.cpu_credit_balance_too_low-period
+  statistic           = "Average"
+  threshold           = local.thresholds["CPUCreditBalanceThreshold"]
+  alarm_description   = "Average EC2 instance CPU Credits Balance under last ${var.cpu_credit_balance_too_low-period} minutes too high. (${var.cpu_credit_balance_too_low-priority})"
+  alarm_actions       = var.sns_topic_arn
+  ok_actions          = var.sns_topic_arn
+  tags                = var.tags
+
+  dimensions = {
+    InstanceId = var.ec2_instance_id
+  }
+}
+
 resource "aws_cloudwatch_metric_alarm" "cpu_utilization_too_high" {
   count               = var.cpu_utilization_too_high-alarm ? 1 : 0
   alarm_name          = "[${title(local.alarm_name_prefix)}] ec2-${local.instance_name}-cpu-utilization-too-high"
@@ -120,7 +200,7 @@ resource "aws_cloudwatch_metric_alarm" "logical_disk_free_space" {
 
 resource "aws_cloudwatch_metric_alarm" "swap_utilization_too_high" {
   count               = var.swap_utilization_too_high-alarm ? 1 : 0
-  alarm_name          = "[${title(local.alarm_name_prefix)}] ec2-${local.instance_name}-cpu-swap-usage-too-high"
+  alarm_name          = "[${title(local.alarm_name_prefix)}] ec2-${local.instance_name}-swap-usage-too-high"
   comparison_operator = var.swap_utilization_too_high-comparison_operator
   evaluation_periods  = var.swap_utilization_too_high-datapoint
   metric_name         = "swap_used_percent"
@@ -128,7 +208,7 @@ resource "aws_cloudwatch_metric_alarm" "swap_utilization_too_high" {
   period              = var.swap_utilization_too_high-period
   statistic           = "Average"
   threshold           = local.thresholds["SwapUsageThreshold"]
-  alarm_description   = "Average EC2 instance CPU Swap Usage over last ${var.swap_utilization_too_high-period} minutes too high, expect a significant performance drop soon. (${var.swap_utilization_too_high-priority})"
+  alarm_description   = "Average EC2 instance Swap Usage over last ${var.swap_utilization_too_high-period} minutes too high, expect a significant performance drop soon. (${var.swap_utilization_too_high-priority})"
   alarm_actions       = var.sns_topic_arn
   ok_actions          = var.sns_topic_arn
   tags                = var.tags
