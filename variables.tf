@@ -40,6 +40,30 @@ variable "cpu_utilization_threshold" {
   default     = 90
 }
 
+variable "status_check_failed_threshold" {
+  description = "The minimum failed Status"
+  type        = string
+  default     = 1
+}
+
+variable "ebs_io_balance_threshold" {
+  description = "The minimum percentage of EBS IO Balance"
+  type        = string
+  default     = 20
+}
+
+variable "ebs_bytes_balance_threshold" {
+  description = "The minimum EBS Bytes Balance."
+  type        = string
+  default     = 20
+}
+
+variable "cpu_credit_balance_threshold" {
+  description = "The minimum CPU Credits."
+  type        = string
+  default     = 20
+}
+
 variable "memory_usage_threshold" {
   description = "The maximum percentage of Memory utilization."
   type        = string
@@ -86,6 +110,114 @@ variable "cpu_utilization_too_high-period" {
 }
 
 variable "cpu_utilization_too_high-priority" {
+  description = "Priority of alarm"
+  default     = "P3"
+  type        = string
+}
+
+variable "status_check_failed-alarm" {
+  description = "Enable Alarm to metric: status_check_failed"
+  default     = true
+  type        = bool
+}
+
+variable "status_check_failed-comparison_operator" {
+  description = "Comparison_operator to alarm"
+  default     = "GreaterThanOrEqualToThreshold"
+}
+
+variable "status_check_failed-datapoint" {
+  description = "Datapoint check to alarm"
+  default     = "1"
+}
+
+variable "status_check_failed-period" {
+  description = "Period check to alarm (in seconds)"
+  default     = "600"
+}
+
+variable "status_check_failed-priority" {
+  description = "Priority of alarm"
+  default     = "P3"
+  type        = string
+}
+
+variable "ebs_io_balance_too_low-alarm" {
+  description = "Enable Alarm to metric: ebs_io_balance_too_low"
+  default     = true
+  type        = bool
+}
+
+variable "ebs_io_balance_too_low-comparison_operator" {
+  description = "Comparison_operator to alarm"
+  default     = "LessThanThreshold"
+}
+
+variable "ebs_io_balance_too_low-datapoint" {
+  description = "Datapoint check to alarm"
+  default     = "1"
+}
+
+variable "ebs_io_balance_too_low-period" {
+  description = "Period check to alarm (in seconds)"
+  default     = "600"
+}
+
+variable "ebs_io_balance_too_low-priority" {
+  description = "Priority of alarm"
+  default     = "P3"
+  type        = string
+}
+
+variable "ebs_bytes_balance_too_low-alarm" {
+  description = "Enable Alarm to metric: ebs_bytes_balance_too_low"
+  default     = true
+  type        = bool
+}
+
+variable "ebs_bytes_balance_too_low-comparison_operator" {
+  description = "Comparison_operator to alarm"
+  default     = "LessThanThreshold"
+}
+
+variable "ebs_bytes_balance_too_low-datapoint" {
+  description = "Datapoint check to alarm"
+  default     = "1"
+}
+
+variable "ebs_bytes_balance_too_low-period" {
+  description = "Period check to alarm (in seconds)"
+  default     = "600"
+}
+
+variable "ebs_bytes_balance_too_low-priority" {
+  description = "Priority of alarm"
+  default     = "P3"
+  type        = string
+}
+
+variable "cpu_credit_balance_too_low-alarm" {
+  description = "Enable Alarm to metric: cpu_credit_balance_too_low"
+  default     = true
+  type        = bool
+}
+
+variable "cpu_credit_balance_too_low-comparison_operator" {
+  description = "Comparison_operator to alarm"
+  default     = "LessThanThreshold"
+}
+
+variable "cpu_credit_balance_too_low-datapoint" {
+  description = "Datapoint check to alarm"
+  default     = "1"
+}
+
+variable "cpu_credit_balance_too_low-period" {
+  description = "Period check to alarm (in seconds)"
+  default     = "600"
+}
+
+variable "cpu_credit_balance_too_low-priority" {
   description = "Priority of alarm"
   default     = "P3"
   type        = string
