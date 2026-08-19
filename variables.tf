@@ -1,4 +1,4 @@
-# Variables 
+# Variables
 
 variable "sns_topic_arn" {
   description = "A list of ARNs (i.e. SNS Topic ARN) to notify on alerts"
@@ -96,16 +96,19 @@ variable "cpu_utilization_too_high-alarm" {
 
 variable "cpu_utilization_too_high-comparison_operator" {
   description = "Comparison_operator to alarm"
+  type        = string
   default     = "GreaterThanThreshold"
 }
 
 variable "cpu_utilization_too_high-datapoint" {
   description = "Datapoint check to alarm"
+  type        = string
   default     = "1"
 }
 
 variable "cpu_utilization_too_high-period" {
   description = "Period check to alarm (in seconds)"
+  type        = string
   default     = "600"
 }
 
@@ -123,16 +126,19 @@ variable "status_check_failed-alarm" {
 
 variable "status_check_failed-comparison_operator" {
   description = "Comparison_operator to alarm"
+  type        = string
   default     = "GreaterThanOrEqualToThreshold"
 }
 
 variable "status_check_failed-datapoint" {
   description = "Datapoint check to alarm"
+  type        = string
   default     = "1"
 }
 
 variable "status_check_failed-period" {
   description = "Period check to alarm (in seconds)"
+  type        = string
   default     = "600"
 }
 
@@ -150,16 +156,19 @@ variable "ebs_io_balance_too_low-alarm" {
 
 variable "ebs_io_balance_too_low-comparison_operator" {
   description = "Comparison_operator to alarm"
+  type        = string
   default     = "LessThanThreshold"
 }
 
 variable "ebs_io_balance_too_low-datapoint" {
   description = "Datapoint check to alarm"
+  type        = string
   default     = "1"
 }
 
 variable "ebs_io_balance_too_low-period" {
   description = "Period check to alarm (in seconds)"
+  type        = string
   default     = "600"
 }
 
@@ -177,16 +186,19 @@ variable "ebs_bytes_balance_too_low-alarm" {
 
 variable "ebs_bytes_balance_too_low-comparison_operator" {
   description = "Comparison_operator to alarm"
+  type        = string
   default     = "LessThanThreshold"
 }
 
 variable "ebs_bytes_balance_too_low-datapoint" {
   description = "Datapoint check to alarm"
+  type        = string
   default     = "1"
 }
 
 variable "ebs_bytes_balance_too_low-period" {
   description = "Period check to alarm (in seconds)"
+  type        = string
   default     = "600"
 }
 
@@ -204,16 +216,19 @@ variable "cpu_credit_balance_too_low-alarm" {
 
 variable "cpu_credit_balance_too_low-comparison_operator" {
   description = "Comparison_operator to alarm"
+  type        = string
   default     = "LessThanThreshold"
 }
 
 variable "cpu_credit_balance_too_low-datapoint" {
   description = "Datapoint check to alarm"
+  type        = string
   default     = "1"
 }
 
 variable "cpu_credit_balance_too_low-period" {
   description = "Period check to alarm (in seconds)"
+  type        = string
   default     = "600"
 }
 
@@ -237,16 +252,19 @@ variable "memory_utilization_too_high-alarm" {
 
 variable "memory_utilization_too_high-comparison_operator" {
   description = "Comparison_operator to alarm"
+  type        = string
   default     = "GreaterThanThreshold"
 }
 
 variable "memory_utilization_too_high-datapoint" {
   description = "Datapoint check to alarm"
+  type        = string
   default     = "1"
 }
 
 variable "memory_utilization_too_high-period" {
   description = "Period check to alarm (in seconds)"
+  type        = string
   default     = "600"
 }
 
@@ -263,16 +281,19 @@ variable "swap_utilization_too_high-alarm" {
 
 variable "swap_utilization_too_high-comparison_operator" {
   description = "Comparison_operator to alarm"
+  type        = string
   default     = "GreaterThanThreshold"
 }
 
 variable "swap_utilization_too_high-datapoint" {
   description = "Datapoint check to alarm"
+  type        = string
   default     = "1"
 }
 
 variable "swap_utilization_too_high-period" {
   description = "Period check to alarm (in seconds)"
+  type        = string
   default     = "600"
 }
 
@@ -290,16 +311,19 @@ variable "disk-utilization_too_high-alarm" {
 
 variable "disk-utilization_too_high-comparison_operator" {
   description = "Comparison_operator to alarm"
+  type        = string
   default     = "GreaterThanThreshold"
 }
 
 variable "disk-utilization_too_high-datapoint" {
   description = "Datapoint check to alarm"
+  type        = string
   default     = "1"
 }
 
 variable "disk-utilization_too_high-period" {
   description = "Period check to alarm (in seconds)"
+  type        = string
   default     = "600"
 }
 
@@ -317,16 +341,19 @@ variable "logical_disk_free_space-alarm" {
 
 variable "logical_disk_free_space-comparison_operator" {
   description = "Comparison_operator to alarm"
+  type        = string
   default     = "LessThanThreshold"
 }
 
 variable "logical_disk_free_space-datapoint" {
   description = "Datapoint check to alarm"
+  type        = string
   default     = "1"
 }
 
 variable "logical_disk_free_space-period" {
   description = "Period check to alarm (in seconds)"
+  type        = string
   default     = "600"
 }
 
